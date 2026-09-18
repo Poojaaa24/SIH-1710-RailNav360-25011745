@@ -100,6 +100,36 @@ The application communicates with the navigation engine, which calculates routes
 
 The database stores station layouts, facilities, accessibility information and updates.
 
+### Proposed Solution Diagram
+
+```mermaid
+flowchart TD
+    A[Passenger] --> B[Mobile App / Web App / Digital Kiosk]
+
+    B --> C[RailNav360 Application]
+
+    C --> D[Destination Search]
+    C --> E[Station Map]
+    C --> F[Accessibility Mode]
+    C --> G[Voice Navigation]
+
+    D --> H[Navigation Engine]
+    E --> H
+    F --> H
+
+    H --> I[Dijkstra Shortest Path Algorithm]
+
+    I --> J[Station Database]
+
+    J --> K[Platforms]
+    J --> L[Ticket Counters]
+    J --> M[Restrooms]
+    J --> N[Food Courts]
+    J --> O[Lifts and Ramps]
+
+    P[Station Administrator] --> Q[Admin Dashboard]
+    Q --> J
+```
 ---
 
 ## 6. Use Cases
@@ -127,7 +157,46 @@ The database stores station layouts, facilities, accessibility information and u
 * Mark facilities unavailable
 * Update station map
 * Manage navigation information
+### Use Case Diagram
 
+```mermaid
+flowchart LR
+
+    P[Passenger]
+    V[Visually Impaired Passenger]
+    A[Station Administrator]
+
+    subgraph R[RailNav360 System]
+        U1[Search Facility]
+        U2[Select Destination]
+        U3[View Station Map]
+        U4[Get Navigation Route]
+        U5[Scan QR Code]
+        U6[Enable Accessibility Mode]
+        U7[Voice Navigation]
+        U8[Receive Audio Directions]
+        U9[Add / Update Facilities]
+        U10[Update Station Layout]
+        U11[Mark Facility Unavailable]
+    end
+
+    P --> U1
+    P --> U2
+    P --> U3
+    P --> U4
+    P --> U5
+    P --> U6
+
+    V --> U1
+    V --> U2
+    V --> U6
+    V --> U7
+    V --> U8
+
+    A --> U9
+    A --> U10
+    A --> U11
+```
 ---
 
 ## 7. Technology Stack
